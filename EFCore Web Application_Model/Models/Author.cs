@@ -11,6 +11,7 @@ namespace EFCoreWebApplication_Model.Models
    public class Author
     {
         [Key]
+      //  [DatabaseGenerated(databaseGeneratedOption:DatabaseGeneratedOption.Identity)]
         public int Author_Id { get; set; }
         [Required]
         [MaxLength(400)]

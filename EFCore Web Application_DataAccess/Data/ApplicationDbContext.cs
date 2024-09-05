@@ -20,6 +20,13 @@ namespace EFCoreWebApplication_DataAccess.Data
         public DbSet<Book> Books { get; set; }
         public DbSet<Publisher> Publishers { get; set; }
         public DbSet<Author> Authors { get; set; }
+        public DbSet<BookDetail> BookDetails { get; set; }
+        public DbSet<BookAuthor> BookAuthors { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<BookAuthor>()
+                .HasKey(b => new {b.Author_Id, b.Book_Id});
+        }
     }
 }
