@@ -22,11 +22,21 @@ namespace EFCoreWebApplication_DataAccess.Data
         public DbSet<Author> Authors { get; set; }
         public DbSet<BookDetail> BookDetails { get; set; }
         public DbSet<BookAuthor> BookAuthors { get; set; }
+        public DbSet<Fluent_BookDetail> FluentBookDetails { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<BookAuthor>()
                 .HasKey(b => new {b.Author_Id, b.Book_Id});
+
+            #region Book Details
+
+            modelBuilder.Entity<Fluent_BookDetail>().HasKey(b => b.BookDetail_Id);
+            modelBuilder.Entity<Fluent_BookDetail>()
+                .Property(b => b.NumberOfChapters)
+                .IsRequired();
+
+            #endregion
         }
     }
 }
