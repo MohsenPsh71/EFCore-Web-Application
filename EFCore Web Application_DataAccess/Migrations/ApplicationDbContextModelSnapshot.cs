@@ -49,7 +49,7 @@ namespace EFCore_Web_Application_DataAccess.Migrations
 
                     b.HasKey("Author_Id");
 
-                    b.ToTable("Authors");
+                    b.ToTable("Authors", (string)null);
                 });
 
             modelBuilder.Entity("EFCoreWebApplication_Model.Models.Book", b =>
@@ -91,7 +91,7 @@ namespace EFCore_Web_Application_DataAccess.Migrations
 
                     b.HasIndex("Publisher_Id");
 
-                    b.ToTable("Books");
+                    b.ToTable("Books", (string)null);
                 });
 
             modelBuilder.Entity("EFCoreWebApplication_Model.Models.BookAuthor", b =>
@@ -106,7 +106,7 @@ namespace EFCore_Web_Application_DataAccess.Migrations
 
                     b.HasIndex("Book_Id");
 
-                    b.ToTable("BookAuthors");
+                    b.ToTable("BookAuthors", (string)null);
                 });
 
             modelBuilder.Entity("EFCoreWebApplication_Model.Models.BookDetail", b =>
@@ -128,7 +128,7 @@ namespace EFCore_Web_Application_DataAccess.Migrations
 
                     b.HasKey("BookDetail_Id");
 
-                    b.ToTable("BookDetails");
+                    b.ToTable("BookDetails", (string)null);
                 });
 
             modelBuilder.Entity("EFCoreWebApplication_Model.Models.Category", b =>
@@ -145,7 +145,7 @@ namespace EFCore_Web_Application_DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("EFCoreWebApplication_Model.Models.Fluent_Author", b =>
@@ -173,7 +173,7 @@ namespace EFCore_Web_Application_DataAccess.Migrations
 
                     b.HasKey("Author_Id");
 
-                    b.ToTable("FluentAuthors");
+                    b.ToTable("FluentAuthors", (string)null);
                 });
 
             modelBuilder.Entity("EFCoreWebApplication_Model.Models.Fluent_Book", b =>
@@ -212,7 +212,7 @@ namespace EFCore_Web_Application_DataAccess.Migrations
 
                     b.HasIndex("Publisher_Id");
 
-                    b.ToTable("FluentBooks");
+                    b.ToTable("FluentBooks", (string)null);
                 });
 
             modelBuilder.Entity("EFCoreWebApplication_Model.Models.Fluent_BookAuthor", b =>
@@ -227,7 +227,7 @@ namespace EFCore_Web_Application_DataAccess.Migrations
 
                     b.HasIndex("Book_Id");
 
-                    b.ToTable("Fluent_BookAuthor");
+                    b.ToTable("Fluent_BookAuthor", (string)null);
                 });
 
             modelBuilder.Entity("EFCoreWebApplication_Model.Models.Fluent_BookDetail", b =>
@@ -249,7 +249,7 @@ namespace EFCore_Web_Application_DataAccess.Migrations
 
                     b.HasKey("BookDetail_Id");
 
-                    b.ToTable("FluentBookDetails");
+                    b.ToTable("FluentBookDetails", (string)null);
                 });
 
             modelBuilder.Entity("EFCoreWebApplication_Model.Models.Fluent_Category", b =>
@@ -288,7 +288,7 @@ namespace EFCore_Web_Application_DataAccess.Migrations
 
                     b.HasKey("Publisher_Id");
 
-                    b.ToTable("FluentPublishers");
+                    b.ToTable("FluentPublishers", (string)null);
                 });
 
             modelBuilder.Entity("EFCoreWebApplication_Model.Models.Genre", b =>
@@ -309,7 +309,7 @@ namespace EFCore_Web_Application_DataAccess.Migrations
 
                     b.HasKey("GenreId");
 
-                    b.ToTable("tbl_Genre");
+                    b.ToTable("tbl_Genre", (string)null);
                 });
 
             modelBuilder.Entity("EFCoreWebApplication_Model.Models.Publisher", b =>
@@ -331,7 +331,7 @@ namespace EFCore_Web_Application_DataAccess.Migrations
 
                     b.HasKey("Publisher_Id");
 
-                    b.ToTable("Publishers");
+                    b.ToTable("Publishers", (string)null);
                 });
 
             modelBuilder.Entity("EFCoreWebApplication_Model.Models.Book", b =>
