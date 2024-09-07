@@ -23,6 +23,10 @@ namespace EFCoreWebApplication_DataAccess.Data
         public DbSet<BookDetail> BookDetails { get; set; }
         public DbSet<BookAuthor> BookAuthors { get; set; }
         public DbSet<Fluent_BookDetail> FluentBookDetails { get; set; }
+        public DbSet<Fluent_Book> FluentBooks { get; set; }
+        public DbSet<Fluent_Author> FluentAuthors { get; set; }
+        public DbSet<Fluent_Publisher> FluentPublishers { get; set; }
+        public DbSet<Fluent_Category> FluentCategories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -37,6 +41,35 @@ namespace EFCoreWebApplication_DataAccess.Data
                 .IsRequired();
 
             #endregion
+
+            //Book 
+            modelBuilder.Entity<Fluent_Book>().HasKey(b => b.Book_Id);
+            modelBuilder.Entity<Fluent_Book>().Property(b => b.ISBN)
+                .IsRequired()
+                .HasMaxLength(15);
+            modelBuilder.Entity<Fluent_Book>().Property(b => b.Title).IsRequired();
+            modelBuilder.Entity<Fluent_Book>().Property(b => b.Price).IsRequired();
+
+
+            //Author
+            modelBuilder.Entity<Fluent_Author>().HasKey(b => b.Author_Id);
+            modelBuilder.Entity<Fluent_Author>().Property(b => b.FirstName).IsRequired();
+            modelBuilder.Entity<Fluent_Author>().Property(b => b.LastName).IsRequired();
+            modelBuilder.Entity<Fluent_Author>().Ignore(b => b.FullName);
+
+            //Publisher
+            modelBuilder.Entity<Fluent_Publisher>().HasKey(b => b.Publisher_Id);
+            modelBuilder.Entity<Fluent_Publisher>().Property(b => b.Name).IsRequired();
+            modelBuilder.Entity<Fluent_Publisher>().Property(b => b.Location).IsRequired();
+
+
+            //Category
+            modelBuilder.Entity<Fluent_Category>().HasKey(c => c.Id);
+            modelBuilder.Entity<Fluent_Category>().ToTable("tnl_CategoryFluent");
+            modelBuilder.Entity<Fluent_Category>().Property(c => c.Name)
+                .HasColumnName("CategoryName");
+
+
         }
     }
 }
