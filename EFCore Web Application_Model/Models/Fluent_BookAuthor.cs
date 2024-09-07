@@ -13,5 +13,8 @@ namespace EFCoreWebApplication_Model.Models
         public int Book_Id { get; set; }
         public int Author_Id { get; set; }
 
+
+        public Fluent_Book FluentBook { get; set; }
+        public Fluent_Author FluentAuthor { get; set; }
     }
 }

@@ -39,6 +39,7 @@ namespace EFCoreWebApplication_DataAccess.Data
             modelBuilder.Entity<Fluent_BookDetail>()
                 .Property(b => b.NumberOfChapters)
                 .IsRequired();
+           
 
             #endregion
 
@@ -49,6 +50,14 @@ namespace EFCoreWebApplication_DataAccess.Data
                 .HasMaxLength(15);
             modelBuilder.Entity<Fluent_Book>().Property(b => b.Title).IsRequired();
             modelBuilder.Entity<Fluent_Book>().Property(b => b.Price).IsRequired();
+            modelBuilder.Entity<Fluent_Book>()
+                .HasOne(b => b.Fluent_BookDetail)
+                .WithOne(b => b.fluent_Book)
+                .HasForeignKey<Fluent_Book>("BookDetail_Id");
+            modelBuilder.Entity<Fluent_Book>()
+                .HasOne(b => b.FluentPublisher)
+                .WithMany(b => b.FluentBooks)
+                .HasForeignKey(b => b.Publisher_Id);
 
 
             //Author
@@ -68,6 +77,21 @@ namespace EFCoreWebApplication_DataAccess.Data
             modelBuilder.Entity<Fluent_Category>().ToTable("tnl_CategoryFluent");
             modelBuilder.Entity<Fluent_Category>().Property(c => c.Name)
                 .HasColumnName("CategoryName");
+
+
+
+
+            //Ralation Many to Many
+            modelBuilder.Entity<Fluent_BookAuthor>()
+                .HasKey(ba => new {ba.Author_Id, ba.Book_Id});
+            modelBuilder.Entity<Fluent_BookAuthor>()
+                .HasOne(b => b.FluentBook)
+                .WithMany(b => b.FluentBookAuthors)
+                .HasForeignKey(b => b.Book_Id);
+            modelBuilder.Entity<Fluent_BookAuthor>()
+                .HasOne(b => b.FluentAuthor)
+                .WithMany(b => b.FluentBookAuthors)
+                .HasForeignKey(b => b.Author_Id);
 
 
         }

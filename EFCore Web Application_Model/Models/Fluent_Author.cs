@@ -21,5 +21,8 @@ namespace EFCoreWebApplication_Model.Models
         public string FullName {
             get { return $"{FirstName} {LastName}"; } }
 
+
+        public ICollection<Fluent_BookAuthor> FluentBookAuthors { get; set; }
+
     }
 }
