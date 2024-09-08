@@ -1,0 +1,95 @@
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+@model EFCoreWebApplication_Model.ViewModels.BookVM
+
+@{
+    var title = "Create Book";
+    ViewData["Title"] = "Upsert";
+}
+@if (Model.Book.Book_Id != 0)
+{
+    title = "Edit Book " + Model.Book.Title;
+}
+<form method="post">
+    <div asp-validation-summary="ModelOnly"></div>
+    <input type="hidden" asp-for="Book.Book_Id" />
+    <input type="hidden" asp-for="Book.BookDetail_Id" />
+    <div class="col-12 border-bottom">
+        <h1 class="text-primary">@title</h1>
+    </div>
+    <div class="col-8 pt-4">
+        <div class="form-group row">
+            <div class="col-4 text-right">
+                <label asp-for="Book.Title"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Book.Title" class="form-control" />
+                <span asp-validation-for="Book.Title" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-8 pt-4">
+        <div class="form-group row">
+            <div class="col-4 text-right">
+                <label asp-for="Book.ISBN"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Book.ISBN" class="form-control" />
+                <span asp-validation-for="Book.ISBN" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-8 pt-4">
+        <div class="form-group row">
+            <div class="col-4 text-right">
+                <label asp-for="Book.Price"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Book.Price" class="form-control" />
+                <span asp-validation-for="Book.Price" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-8 pt-4">
+        <div class="form-group row">
+            <div class="col-4 text-right">
+                <label asp-for="Book.Publisher_Id"></label>
+            </div>
+            <div class="col-8">
+                @Html.DropDownListFor(u => u.Book.Publisher_Id, Model.PublisherList, " -- Select Publisher --",
+                    new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+    <div class="col-8 pt-4">
+        <div class="form-group row">
+            <div class="col-4 text-right">
+                <label asp-for="Book.Category_Id"></label>
+            </div>
+            <div class="col-8">
+                @Html.DropDownListFor(u => u.Book.Category_Id, Model.CategorieList, " -- Select Category --",
+                    new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-4 offset-4">
+            @if (Model.Book.Book_Id == 0)
+            {
+                <button type="submit" class="btn btn-success form-control">Create</button>
+            }
+            else
+            {
+                <button type="submit" class="btn btn-warning form-control">Edit</button>
+            }
+        </div>
+    </div>
+</form>
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
