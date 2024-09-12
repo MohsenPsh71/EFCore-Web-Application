@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using EFCoreWebApplication_DataAccess.Data;
 using EFCoreWebApplication_Model.Models;
 using EFCoreWebApplication_Model.ViewModels;
+using System.Drawing;
 
 namespace EFCore_Web_Application.Controllers
 {
@@ -130,17 +131,36 @@ namespace EFCore_Web_Application.Controllers
             #endregion
 
             #region IEnumerable VS IQueryable
-            // First, the complete data is loaded and then the filter is applied
+            //// First, the complete data is loaded and then the filter is applied
 
-            int a = 0;
-            IEnumerable<Book> bookList = _db.Books;
-            var filter = bookList.Where(b => b.Price > 500).ToList();
+            //int a = 0;
+            //IEnumerable<Book> bookList = _db.Books;
+            //var filter = bookList.Where(b => b.Price > 500).ToList();
 
-            //The filter happens in sql and then the data is loaded
-            IQueryable<Book> bookListQ = _db.Books;
-            var filterQ = bookListQ.Where(b => b.Price > 500).ToList();
+            ////The filter happens in sql and then the data is loaded
+            //IQueryable<Book> bookListQ = _db.Books;
+            //var filterQ = bookListQ.Where(b => b.Price > 500).ToList();
 
             #endregion
+
+            #region Update VS Attach
+
+            //It also updates all relations
+            var bookTemp1 = _db.Books.Include(b => b.BookDetail)
+                .FirstOrDefault(b => b.Book_Id == 1007);
+            bookTemp1.BookDetail.NumberOfPages = 122;
+            _db.Books.Update(bookTemp1);
+            _db.SaveChanges();
+
+            //It only updates the desired table
+            var bookTemp2 = _db.Books.Include(b => b.BookDetail)
+                .FirstOrDefault(b => b.Book_Id == 1007);
+            bookTemp2.BookDetail.Weight = 322;
+            _db.Books.Attach(bookTemp2);
+            _db.SaveChanges();
+
+            #endregion
+
 
 
 
