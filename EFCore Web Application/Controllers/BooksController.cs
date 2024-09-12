@@ -23,9 +23,15 @@ namespace EFCore_Web_Application.Controllers
 
         public IActionResult Index()
         {
-            //eager loading
-            var books = _db.Books.Include(b => b.Category).Include(b => b.Publisher).Include(b => b.BookDetail).ToList();
+            #region Eager Loading
 
+            //var books = _db.Books.Include(b => b.Category).Include(b => b.Publisher).Include(b => b.BookDetail).ToList();
+
+            var books = _db.Books.Include(b => b.Category).Include(b => b.Publisher).Include(b => b.BookDetail)
+                .Include(b => b.BookAuthors).ThenInclude(a => a.Author)
+                .ToList();
+
+            #endregion
 
 
 
@@ -36,21 +42,24 @@ namespace EFCore_Web_Application.Controllers
 
             //}
 
-            //explicit loading
+            #region Explicit Loading
 
             //foreach (var book in books)
             //{
             //    _db.Entry(book).Reference(u=>u.Publisher).Load();
             //}
-            foreach (var book in books)
-            {
-                _db.Entry(book).Collection(b => b.BookAuthors).Load();
+            //foreach (var book in books)
+            //{
+            //    _db.Entry(book).Collection(b => b.BookAuthors).Load();
 
-                foreach (var bookBookAuthor in book.BookAuthors)
-                {
-                    _db.Entry(bookBookAuthor).Reference(a => a.Author).Load();
-                }
-            }
+            //    foreach (var bookBookAuthor in book.BookAuthors)
+            //    {
+            //        _db.Entry(bookBookAuthor).Reference(a => a.Author).Load();
+            //    }
+            //}
+
+            #endregion
+
             return View(books);
         }
 
