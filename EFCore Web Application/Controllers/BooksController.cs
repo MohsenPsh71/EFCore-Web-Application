@@ -201,7 +201,30 @@ namespace EFCore_Web_Application.Controllers
 
             #endregion
 
+            #region Change Tracking
 
+            //var cat = _db.Categories.Find(10);
+            //_db.Entry(cat).State = EntityState.Deleted;
+            //_db.SaveChanges();
+
+            #endregion
+
+            #region FromSqlRaw & FromSqlInterpolated
+
+            //var viewlist = _db.BookDetailsFromViews.ToList();
+            //var viewList2 = _db.BookDetailsFromViews.FirstOrDefault();
+            //var viewList3 = _db.BookDetailsFromViews.Where(u => u.Price > 500).ToList();
+
+            var bookRaw = _db.Books.FromSqlRaw("Select * from Books").ToList();
+            int id = 1014;
+            var Raw1 = _db.Books.FromSqlInterpolated($"Select * From Books where Book_Id={id}").ToList();
+            var sp = _db.Books.FromSqlInterpolated($"EXEC dbo.getAllBookDetails {id}").ToList();
+
+            #endregion
+
+            // use Where & OrderByDescending in Include
+            var bookFilter = _db.Books.Include(b => b.BookAuthors.Where(a => a.Author_Id == 1)).ToList();
+            var bookFilter2 = _db.Books.Include(b => b.BookAuthors.OrderByDescending(p => p.Author_Id == 1).Take(5)).ToList();
 
         }
 

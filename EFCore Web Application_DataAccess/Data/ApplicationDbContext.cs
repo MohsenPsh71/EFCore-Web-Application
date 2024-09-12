@@ -16,6 +16,7 @@ namespace EFCoreWebApplication_DataAccess.Data
 
         }
 
+        public DbSet<BookDetailsFromView> BookDetailsFromViews { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Book> Books { get; set; }
@@ -61,6 +62,7 @@ namespace EFCoreWebApplication_DataAccess.Data
             modelBuilder.ApplyConfiguration(new FluentPublisherConfig());
 
 
+            modelBuilder.Entity<BookDetailsFromView>().HasNoKey().ToView("GetOnlyBookDetails");
 
 
 
