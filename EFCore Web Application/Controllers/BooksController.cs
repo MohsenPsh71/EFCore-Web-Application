@@ -104,31 +104,43 @@ namespace EFCore_Web_Application.Controllers
         {
             #region Lazy Loading
 
-            //only when they are needed
+            ////only when they are needed
 
-            var bookTemp = _db.Books.FirstOrDefault();
-            bookTemp.Price = 100;
+            //var bookTemp = _db.Books.FirstOrDefault();
+            //bookTemp.Price = 100;
 
-            var bookCollection = _db.Books;
-            double totalPrice = 0;
-            foreach (var book in bookCollection)
-            {
-                totalPrice += book.Price;
-            }
-            var bookCollection2 = _db.Books;
-            var bookCount1 = bookCollection2.Count();
-            var bookCount2 = _db.Books.Count();
+            //var bookCollection = _db.Books;
+            //double totalPrice = 0;
+            //foreach (var book in bookCollection)
+            //{
+            //    totalPrice += book.Price;
+            //}
+            //var bookCollection2 = _db.Books;
+            //var bookCount1 = bookCollection2.Count();
+            //var bookCount2 = _db.Books.Count();
 
-            //Until use ToList()
+            ////Until use ToList()
 
-            var bookList = _db.Books.ToList();
-            foreach (var book in bookList)
-            {
-                totalPrice += book.Price;
-            }
+            //var bookList = _db.Books.ToList();
+            //foreach (var book in bookList)
+            //{
+            //    totalPrice += book.Price;
+            //}
 
             #endregion
 
+            #region IEnumerable VS IQueryable
+            // First, the complete data is loaded and then the filter is applied
+
+            int a = 0;
+            IEnumerable<Book> bookList = _db.Books;
+            var filter = bookList.Where(b => b.Price > 500).ToList();
+
+            //The filter happens in sql and then the data is loaded
+            IQueryable<Book> bookListQ = _db.Books;
+            var filterQ = bookListQ.Where(b => b.Price > 500).ToList();
+
+            #endregion
 
 
 
