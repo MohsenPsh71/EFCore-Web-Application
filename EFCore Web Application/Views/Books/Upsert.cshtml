@@ -55,7 +55,7 @@
                 <label asp-for="Book.Publisher_Id"></label>
             </div>
             <div class="col-8">
-                @Html.DropDownListFor(u => u.Book.Publisher_Id, Model.PublisherList, " -- Select Publisher --",
+                @Html.DropDownListFor(u => u.Book.Publisher_Id, Model.PublisherList ?? new List<SelectListItem>(), " -- Select Publisher --",
                     new { @class = "form-control" })
             </div>
         </div>
@@ -66,7 +66,7 @@
                 <label asp-for="Book.Category_Id"></label>
             </div>
             <div class="col-8">
-                @Html.DropDownListFor(u => u.Book.Category_Id, Model.CategorieList, " -- Select Category --",
+                @Html.DropDownListFor(u => u.Book.Category_Id, Model.CategorieList ?? new List<SelectListItem>(), " -- Select Category --",
                     new { @class = "form-control" })
             </div>
         </div>
