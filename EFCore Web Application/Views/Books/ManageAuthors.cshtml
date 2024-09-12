@@ -1,0 +1,67 @@
+﻿@model EFCoreWebApplication_Model.ViewModels.BookAuthorVM
+@{ 
+}
+
+
+<div class="container p-3 border">
+    <div class="row">
+        <div class="col-6 form-group">
+            <form method="post" asp-action="ManageAuthors">
+                <div asp-validation-summary="All"></div>
+                <input type="hidden" asp-for="Book.Book_Id" />
+                <input type="hidden" asp-for="BookAuthor.Book_Id" />
+               
+                <div class="row">
+                    <div class="col-3">
+                        <label asp-for="Book.Title"></label>
+                    </div>
+                    <div class="col-9">
+                        <input type="text" asp-for="Book.Title" class="form-control" disabled />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3 pt-3">
+                        <label asp-for="BookAuthor.Author.FullName"></label>
+                    </div>
+                    <div class="col-9">
+                        @Html.DropDownListFor(u => u.BookAuthor.Author_Id, Model.AuthorList, "--Select Author--",
+                            new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4 offset-3">
+                        <button type="submit" class="btn btn-outline-success">Add Author</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-6">
+            <form method="post" asp-action="RemoveAuthor">
+                <input type="hidden" asp-for="Book.Book_Id"/>
+                <div class="text-right">
+                    <div class="row">
+                        <h2 class="text-info">Authors List</h2>
+                        <hr/>
+                    </div>
+                    @foreach (var auth in Model.BookAuthors)
+                    {
+                        <div class="row pb-2">
+                            <div class="col-8 text-center">
+                                @auth.Author.FullName
+                            </div>
+                            <div class="col-4">
+                                <button type="submit" asp-action="RemoveAuthor" class="btn btn-outline-danger form-control" asp-route-authorId="@auth.Author_Id">Remove</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial"/>
+}

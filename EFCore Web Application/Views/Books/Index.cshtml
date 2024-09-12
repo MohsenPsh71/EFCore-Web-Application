@@ -14,57 +14,58 @@
 {
     <table class="table">
         <thead class="table table-bordered">
-        <tr class="table-secondary">
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ISBN)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Publisher)
-            </th>
-            <th>
-                Number of pages
-            </th>
-            <th></th>
-        </tr>
+            <tr class="table-secondary">
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ISBN)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Category)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Publisher)
+                </th>
+                <th>
+                    Number of pages
+                </th>
+                <th></th>
+            </tr>
         </thead>
         <tbody>
-        @foreach (var item in Model) {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ISBN)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Category.Name)
-                </td>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ISBN)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category.Name)
+                    </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.Publisher.Location)
-                </td>
-                <td>
-                    @item.BookDetail?.NumberOfPages
-                </td>
-                <td>
-                    <a asp-action="Upsert" asp-route-id="@item.Book_Id" class="btn btn-outline-warning">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@item.Book_Id" class="btn btn-outline-danger">Delete</a>
-                    <a asp-action="" asp-route-id="@item.Book_Id" class="btn btn-outline-primary">Manage Authors</a>
-                </td>
-            </tr>
-        }
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Publisher.Location)
+                    </td>
+                    <td>
+                        @item.BookDetail?.NumberOfPages
+                    </td>
+                    <td>
+                        <a asp-action="Upsert" asp-route-id="@item.Book_Id" class="btn btn-outline-warning">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.Book_Id" class="btn btn-outline-danger">Delete</a>
+                        <a asp-action="ManageAuthors" asp-route-id="@item.Book_Id" class="btn btn-outline-primary">Manage Authors</a>
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
 }

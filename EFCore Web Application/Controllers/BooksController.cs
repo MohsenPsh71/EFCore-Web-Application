@@ -186,5 +186,51 @@ namespace EFCore_Web_Application.Controllers
 
 
         }
+
+        public IActionResult ManageAuthors(int id)
+        {
+            BookAuthorVM bookAuthor = new BookAuthorVM()
+            {
+                BookAuthors = _db.BookAuthors.Include(u => u.Author)
+                    .Include(u => u.Book)
+                    .Where(b => b.Book_Id == id).ToList(),
+                BookAuthor = new BookAuthor()
+                {
+                    Book_Id = id
+                },
+                Book = _db.Books.Find(id)
+
+            };
+            List<int> listOfAuthors = bookAuthor.BookAuthors.Select(u => u.Author_Id).ToList();
+            var tempList = _db.Authors.Where(a => !listOfAuthors.Contains(a.Author_Id)).ToList();
+            bookAuthor.AuthorList = tempList.Select(i => new SelectListItem()
+            {
+                Value = i.Author_Id.ToString(),
+                Text = i.FullName
+            });
+
+            return View(bookAuthor);
+        }
+
+        [HttpPost]
+        public IActionResult ManageAuthors(BookAuthorVM bookAuthorVm)
+        {
+            if (bookAuthorVm.BookAuthor.Book_Id != 0 && bookAuthorVm.BookAuthor.Author_Id != 0)
+            {
+                _db.BookAuthors.Add(bookAuthorVm.BookAuthor);
+                _db.SaveChanges();
+            }
+
+            return RedirectToAction(nameof(ManageAuthors), new { @id = bookAuthorVm.BookAuthor.Book_Id });
+        }
+
+        public IActionResult RemoveAuthor(int authorId, BookAuthorVM bookAuthorVm)
+        {
+            int bookId = bookAuthorVm.Book.Book_Id;
+            var ba = _db.BookAuthors.FirstOrDefault(b => b.Author_Id == authorId && b.Book_Id == bookId);
+            _db.BookAuthors.Remove(ba);
+            _db.SaveChanges();
+            return RedirectToAction(nameof(ManageAuthors), new { @id = bookId });
+        }
     }
 }
