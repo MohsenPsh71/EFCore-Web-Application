@@ -23,7 +23,7 @@ namespace EFCore_Web_Application.Controllers
         public IActionResult Index()
         {
             //eager loading
-            var books = _db.Books.Include(b=>b.Category).Include(b=>b.Publisher).Include(b=>b.BookDetail).ToList();
+            var books = _db.Books.Include(b => b.Category).Include(b => b.Publisher).Include(b => b.BookDetail).ToList();
 
 
 
@@ -37,16 +37,16 @@ namespace EFCore_Web_Application.Controllers
 
             //explicit loading
 
-                //foreach (var book in books)
-                //{
-                //    _db.Entry(book).Reference(u=>u.Publisher).Load();
-                //}
+            //foreach (var book in books)
+            //{
+            //    _db.Entry(book).Reference(u=>u.Publisher).Load();
+            //}
             return View(books);
         }
 
         public IActionResult Upsert(int? id)
         {
-            BookVM book=new BookVM();
+            BookVM book = new BookVM();
             book.PublisherList = _db.Publishers.Select(p => new SelectListItem()
             {
                 Text = p.Name,
@@ -59,7 +59,7 @@ namespace EFCore_Web_Application.Controllers
             });
             if (id == null)
             {
-                book.Book=new Book();
+                book.Book = new Book();
                 return View(book);
             }
 
@@ -73,7 +73,7 @@ namespace EFCore_Web_Application.Controllers
         [HttpPost]
         public IActionResult Upsert(BookVM crbk)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 if (crbk.Book.Book_Id == 0)
                 {
@@ -100,5 +100,38 @@ namespace EFCore_Web_Application.Controllers
             return RedirectToAction("Index");
         }
 
+        public void PlayGround()
+        {
+            #region Lazy Loading
+
+            //only when they are needed
+
+            var bookTemp = _db.Books.FirstOrDefault();
+            bookTemp.Price = 100;
+
+            var bookCollection = _db.Books;
+            double totalPrice = 0;
+            foreach (var book in bookCollection)
+            {
+                totalPrice += book.Price;
+            }
+            var bookCollection2 = _db.Books;
+            var bookCount1 = bookCollection2.Count();
+            var bookCount2 = _db.Books.Count();
+
+            //Until use ToList()
+
+            var bookList = _db.Books.ToList();
+            foreach (var book in bookList)
+            {
+                totalPrice += book.Price;
+            }
+
+            #endregion
+
+
+
+
+        }
     }
 }

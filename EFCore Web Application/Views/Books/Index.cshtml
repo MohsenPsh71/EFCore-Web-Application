@@ -8,6 +8,7 @@
 
 <p>
     <a asp-action="Upsert" class="btn btn-outline-primary">Create New Book</a>
+    <a asp-action="PlayGround" class="btn btn-outline-primary">Play Ground</a>
 </p>
 @if (Model.Any())
 {
@@ -60,7 +61,7 @@
                 <td>
                     <a asp-action="Upsert" asp-route-id="@item.Book_Id" class="btn btn-outline-warning">Edit</a>
                     <a asp-action="Delete" asp-route-id="@item.Book_Id" class="btn btn-outline-danger">Delete</a>
-                    <a asp-action="Delete" asp-route-id="@item.Book_Id" class="btn btn-outline-primary">Manage Authors</a>
+                    <a asp-action="" asp-route-id="@item.Book_Id" class="btn btn-outline-primary">Manage Authors</a>
                 </td>
             </tr>
         }
