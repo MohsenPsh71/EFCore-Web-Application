@@ -145,22 +145,43 @@ namespace EFCore_Web_Application.Controllers
 
             #region Update VS Attach
 
-            //It also updates all relations
-            var bookTemp1 = _db.Books.Include(b => b.BookDetail)
-                .FirstOrDefault(b => b.Book_Id == 1007);
-            bookTemp1.BookDetail.NumberOfPages = 122;
-            _db.Books.Update(bookTemp1);
-            _db.SaveChanges();
+            ////It also updates all relations
+            //var bookTemp1 = _db.Books.Include(b => b.BookDetail)
+            //    .FirstOrDefault(b => b.Book_Id == 1007);
+            //bookTemp1.BookDetail.NumberOfPages = 122;
+            //_db.Books.Update(bookTemp1);
+            //_db.SaveChanges();
 
-            //It only updates the desired table
-            var bookTemp2 = _db.Books.Include(b => b.BookDetail)
-                .FirstOrDefault(b => b.Book_Id == 1007);
-            bookTemp2.BookDetail.Weight = 322;
-            _db.Books.Attach(bookTemp2);
-            _db.SaveChanges();
+            ////It only updates the desired table
+            //var bookTemp2 = _db.Books.Include(b => b.BookDetail)
+            //    .FirstOrDefault(b => b.Book_Id == 1007);
+            //bookTemp2.BookDetail.Weight = 322;
+            //_db.Books.Attach(bookTemp2);
+            //_db.SaveChanges();
 
             #endregion
 
+            #region EntityState
+
+            ////EntityState can be used for CRUD operations
+            //var category = _db.Categories.FirstOrDefault();
+            //category.Name = "Testi";
+            //_db.Entry(category).State = EntityState.Modified;
+            //_db.SaveChanges();
+
+            //var cat = _db.Categories.Find(10);
+            //_db.Entry(cat).State = EntityState.Deleted;
+            //_db.SaveChanges();
+
+            ////EntityState worked like Attach
+            //var bookTemp2 = _db.Books.Include(b => b.BookDetail)
+            //    .FirstOrDefault(b => b.Book_Id == 1007);
+            //bookTemp2.BookDetail.Weight = 1322;
+            //_db.Entry(bookTemp2.BookDetail).State = EntityState.Modified;
+            //_db.SaveChanges();
+
+
+            #endregion
 
 
 
