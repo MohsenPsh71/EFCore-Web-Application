@@ -33,6 +33,9 @@
                 <th>
                     Number of pages
                 </th>
+                <th>
+                    Authors
+                </th>
                 <th></th>
             </tr>
         </thead>
@@ -58,6 +61,16 @@
                     </td>
                     <td>
                         @item.BookDetail?.NumberOfPages
+                    </td>
+                    <td>
+                        @{
+                            string authors = "";
+                        }
+                        @foreach (var auth in item.BookAuthors)
+                        {
+                            authors += auth.Author.FullName + ", ";
+                        }
+                        @authors.Trim().Trim(',')
                     </td>
                     <td>
                         <a asp-action="Upsert" asp-route-id="@item.Book_Id" class="btn btn-outline-warning">Edit</a>

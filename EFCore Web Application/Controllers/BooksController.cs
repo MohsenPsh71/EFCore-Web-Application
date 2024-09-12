@@ -42,6 +42,15 @@ namespace EFCore_Web_Application.Controllers
             //{
             //    _db.Entry(book).Reference(u=>u.Publisher).Load();
             //}
+            foreach (var book in books)
+            {
+                _db.Entry(book).Collection(b => b.BookAuthors).Load();
+
+                foreach (var bookBookAuthor in book.BookAuthors)
+                {
+                    _db.Entry(bookBookAuthor).Reference(a => a.Author).Load();
+                }
+            }
             return View(books);
         }
 

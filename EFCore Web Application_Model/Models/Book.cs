@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EFCoreWebApplication_Model.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -36,5 +37,7 @@ namespace EFCoreWebApplication_Model.Models
         [ForeignKey("Publisher")]
         public int? Publisher_Id { get; set; }
         public Publisher? Publisher { get; set; }
+        public List<BookAuthor>? BookAuthors { get; set; }
+
     }
 }
