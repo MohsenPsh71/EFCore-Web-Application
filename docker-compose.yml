@@ -1,0 +1,14 @@
+services:
+
+  orderdb:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+
+  efcorewebapplication:
+    image: ${DOCKER_REGISTRY-}efcorewebapplication
+    build:
+      context: .
+      dockerfile: EFCore Web Application/Dockerfile
+volumes:
+  data:
+  log:
+  secrets:

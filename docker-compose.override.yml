@@ -1,0 +1,29 @@
+services:
+  orderdb:
+     container_name: orderdb
+     hostname: orderdb
+     environment:
+      ACCEPT_EULA: 'Y'
+      MSSQL_SA_PASSWORD: 'Passw0rd'
+      MSSQL_DATA_DIR: /var/opt/mssql/data
+      MSSQL_PID: 'Developer' 
+      MSSQL_TCP_PORT: 1433 
+     ports: 
+      - "1433:1433"
+     volumes:
+      - ./data:/var/opt/mssql/data
+      - ./log:/var/opt/mssql/log
+      - ./secrets:/var/opt/mssql/secrets
+
+  efcorewebapplication:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+      - "ConnectionStrings:DefaultConnection=Server=orderdb;Database=EFCore_DB;User Id=sa;Password=Passw0rd;Encrypt=true;TrustServerCertificate=yes"
+    ports:
+      - "8000:8080"
+      - "8001:8081"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
